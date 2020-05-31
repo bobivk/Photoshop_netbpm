@@ -3,7 +3,7 @@
 #include<string>
 #include<iostream>
 #include<fstream>
-#include"Image.h"
+#include<algorithm>
 #include"PBM_image.h"
 #include"PGM_image.h"
 #include"PPM_image.h"
@@ -11,7 +11,6 @@
 #include"Monochrome.h"
 #include"Negative.h"
 #include"Grayscale.h"
-#include"Collage.h"
 #include"Enum_types.h"
 
 using namespace std;
@@ -22,7 +21,7 @@ class Session
 public:
 	Session();
 	~Session();
-	void load_image();
+	void load_image(string);
 	void save();
 	void undo();
 	void session_info();
@@ -41,7 +40,8 @@ private:
 
 	
 
-	void make_collage();
+	void make_collage(orientation_t, Image*, Image*, string in_outfilename);
+
 
 	unsigned get_new_id();
 };

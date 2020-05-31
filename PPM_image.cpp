@@ -32,6 +32,9 @@ void PPM_image::save() const {
 string PPM_image::get_file_name() const {
 	return filename;
 }
+string PPM_image::get_magic_number() const {
+	return "P6";
+}
 int PPM_image::get_max_pixel_value() const {
 	return max_pixel_value;
 }

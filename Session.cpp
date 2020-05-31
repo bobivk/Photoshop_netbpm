@@ -9,11 +9,9 @@ Session::~Session() {
 unsigned Session::get_new_id() {
 	return session_last_id++;
 }
-unsigned Session::session_last_id{ 0 };
+unsigned Session::session_last_id{ 1 };
 
-void Session::load_image() {
-	string filename;
-	cin >> filename;
+void Session::load_image(string filename) {
 	ifstream file(filename, ios::beg);
 	string magic_number;
 	file >> magic_number;
@@ -30,7 +28,7 @@ void Session::load_image() {
 		PPM_image image(filename);
 		images.push_back(&image);
 	}
-	
+
 	else if (magic_number == "P5") {
 		PGM_image image(filename);
 		images.push_back(&image);
@@ -39,6 +37,8 @@ void Session::load_image() {
 		PPM_image image(filename);
 		images.push_back(&image);
 	}
+	else cout << "Can't load this image\n";
+	cout << "Loaded image " << filename << endl;
 }
 void Session::save() {
 	for (size_t i = 0; i < actions.size(); ++i) {
@@ -78,4 +78,24 @@ void Session::negative() {
 }
 bool Session::has_pending_actions() {
 	return actions.size() > 0;
+}
+void Session::make_collage(orientation_t orientation, Image* first, Image* second, string outfilename) {
+	ofstream out(outfilename, ios::beg | ios::trunc);
+	out << first->get_magic_number() << '\n';
+	if (orientation == orientation_t::horizontal) {
+		Dimensions new_dimensions(max(first->get_dimensions().x, second->get_dimensions().x),
+			first->get_dimensions().y + second->get_dimensions().y);
+		out << new_dimensions;
+		for (unsigned row = 0; row < new_dimensions.x; ++row) {
+			for (unsigned col = 0; col < new_dimensions.y; ++col) {
+				
+			}
+		}
+	}
+	if (orientation == orientation_t::vertical) {
+		Dimensions new_dimensions(first->get_dimensions().x + second->get_dimensions().x,
+			max(first->get_dimensions().y, second->get_dimensions().y));
+		out << new_dimensions;
+
+	}
 }

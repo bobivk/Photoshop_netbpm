@@ -33,6 +33,9 @@ void PBM_image::save() const {
 string PBM_image::get_file_name() const {
 	return filename;
 }
+string PBM_image::get_magic_number() const {
+	return "P4";
+}
 int PBM_image::get_max_pixel_value() const {
 	return 1;
 }

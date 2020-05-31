@@ -32,6 +32,9 @@ void PGM_image::save() const {
 string PGM_image::get_file_name() const {
 	return filename;
 }
+string PGM_image::get_magic_number() const {
+	return "P5";
+}
 int PGM_image::get_max_pixel_value() const {
 	return max_pixel_value;
 }

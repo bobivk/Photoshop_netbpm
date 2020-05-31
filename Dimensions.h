@@ -4,7 +4,7 @@ using namespace std;
 struct Dimensions {
 	unsigned x;
 	unsigned y;
-	Dimensions(unsigned in_x = 0, unsigned in_y = 0) :x{ in_x }, y{ in_y } {}
+	Dimensions(unsigned x = 0, unsigned y = 0);
 	Dimensions(const Dimensions&);
 	Dimensions& operator=(const Dimensions&);
 	void swap();

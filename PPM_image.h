@@ -13,6 +13,7 @@ public:
 	PPM_image(string filename);
 	void save() const override;
 	string get_file_name() const override;
+	string get_magic_number() const override;
 	int get_max_pixel_value() const override;
 	Dimensions get_dimensions() const override;
 	void set_dimensions(Dimensions&) override;

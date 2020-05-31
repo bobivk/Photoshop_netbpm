@@ -5,7 +5,7 @@ string Rotate::get_name() const {
 	string rotate = "rotate ";
 	return rotate += directions[(int)direction];
 }
-void Rotate::execute(vector<Image*>& images) {
+void Rotate::execute(vector<Image*>& images) { //no polymorphism here :(
 	for (size_t i = 0; i < images.size(); ++i) {
 		if (dynamic_cast<PBM_image*>(images[i]))
 		{

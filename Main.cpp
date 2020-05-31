@@ -12,22 +12,25 @@ int main() {
 	cout << "6. grayscale\n";
 	cout << "7. negative\n";
 	cout << "8. save\n";
-	cout << "9. exit\n";
-	cout << " > ";
+	cout << "9. new\n";
+	cout << "10. exit\n";
 	vector<Session> sessions;
 	Session current_session;
 	sessions.push_back(current_session);
 	string command;
 	bool running = true;
 	while (running) {
+		cout << " > ";
 		cin >> command;
 		if (command == "load") {
+			string filename;
+			cin >> filename;
 			if (current_session.has_pending_actions()) {
 				Session new_session;
 				sessions.push_back(new_session);
 				current_session = new_session;
 			}
-			current_session.load_image();
+			current_session.load_image(filename);
 		}
 		else if (command == "save") {
 			current_session.save();
@@ -39,6 +42,11 @@ int main() {
 			int id;
 			cin >> id;
 			current_session = sessions[id - 1];
+		}
+		else if (command == "new"){
+			Session new_session;
+			sessions.push_back(new_session);
+			current_session = new_session;
 		}
 		else if (command == "rotate") {
 			string directionstr;

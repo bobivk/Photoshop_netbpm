@@ -1,4 +1,7 @@
 #include "Dimensions.h"
+
+Dimensions::Dimensions(unsigned in_x, unsigned in_y) :x{ in_x }, y{ in_y } {}
+
 Dimensions::Dimensions(const Dimensions& other): x { other.x }, y{ other.y } {}
 
 Dimensions& Dimensions::operator=(const Dimensions& other) {
