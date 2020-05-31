@@ -26,7 +26,7 @@ istream& operator>>(istream& in, PBM_pixel& pixel) {
 		}
 	}
 	catch (Bad_pixel_exception& e) {
-		cout << "Bad PBM_pixel caught: " << e.get_bad_pixel() << endl;
+		cout << "Bad PBM_pixel exception caught: " << e.get_bad_pixel() << endl;
 	}
 	return in;
 }

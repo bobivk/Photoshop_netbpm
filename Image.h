@@ -1,19 +1,17 @@
 #pragma once
-#include"Enum_types.h"
-#include"Dimensions.h"
 #include<fstream>
-#include<sstream>
-#include<string>
 #include<vector>
+#include<string>
+#include<sstream>
+
+#include"Dimensions.h"
 using namespace std;
 
-
-
-class Image
-{
-private:
+class Image {
 public:
-	virtual void save(string filename) const = 0;
+	virtual void save() const = 0;
+	virtual string get_file_name() const = 0;
+	virtual Dimensions get_dimensions() const = 0;
+	virtual void set_dimensions(Dimensions&) = 0;
 	virtual ~Image() = default;
 };
-

@@ -1,6 +1,5 @@
 #pragma once
 #include<vector>
-#include<stack>
 #include<string>
 #include<iostream>
 #include<fstream>
@@ -20,24 +19,23 @@ public:
 	Session();
 	~Session();
 	void load_image();
-	void save(string file_name);
+	void save();
+	void undo();
+	void session_info();
+	void rotate(direction_t);
 	void grayscale();
 	void monochrome();
 	void negative();
-	void rotate_input();
-	void undo();
-	void session_info();
 	void collage_input();
 
 	static unsigned session_last_id;
 private:
 	vector<Image*> images;
-	stack<Action*> actions;
+	vector<Action*> actions;
 	unsigned id;
 
 	
 
-	void rotate(direction_t);
 	void make_collage();
 
 	unsigned get_new_id();

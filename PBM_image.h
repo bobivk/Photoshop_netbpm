@@ -1,16 +1,20 @@
 #pragma once
-#include "Image.h"
 #include"PBM_pixel.h"
-
+#include"Image.h"
 
 class PBM_image : public Image
 {
 private:
-	vector<PBM_pixel> pixels;	//0=white, 1=black
+	vector<vector<PBM_pixel>> pixel_matrix;	//0=white, 1=black
 	Dimensions dimensions;
+	string filename;
 public:
-	PBM_image(ifstream& in);
-	void save(string filename) const override;
-
+	PBM_image(string filename);
+	void save() const override;
+	string get_file_name() const override;
+	Dimensions get_dimensions() const override;
+	void set_dimensions(Dimensions&) override;
+	vector<vector<PBM_pixel>> get_pixel_matrix() const;
+	void set_pixel_matrix(vector<vector<PBM_pixel>>);
 };
 

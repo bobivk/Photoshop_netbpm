@@ -6,8 +6,8 @@
 class Monochrome : public Action
 {
 public:
-	Monochrome(Image*);
-	void execute() override final;
-	void undo() override final;
+
+	string get_name() const override;
+	void execute(vector<Image*> images) override;
 };
 
