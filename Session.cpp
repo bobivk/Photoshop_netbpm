@@ -47,6 +47,7 @@ void Session::save() {
 	for (size_t i = 0; i < images.size(); ++i) {
 		images[i]->save();
 	}
+	actions.clear();
 }
 void Session::undo() {
 	if (actions.size() > 0) actions.erase(actions.end() - 1);
@@ -64,5 +65,17 @@ void Session::session_info() {
 	cout << endl;
 }
 void Session::rotate(direction_t direction) {
-
+	actions.push_back(&Rotate(direction));
+}
+void Session::grayscale() {
+	actions.push_back(&Grayscale());
+}
+void Session::monochrome() {
+	actions.push_back(&Monochrome());
+}
+void Session::negative() {
+	actions.push_back(&Negative());
+}
+bool Session::has_pending_actions() {
+	return actions.size() > 0;
 }

@@ -5,11 +5,11 @@ string Rotate::get_name() const {
 	string rotate = "rotate ";
 	return rotate += directions[(int)direction];
 }
-void Rotate::execute(vector<Image*> images) {
-	for (auto image : images) {
-		if (dynamic_cast<PBM_image*>(image))
+void Rotate::execute(vector<Image*>& images) {
+	for (size_t i = 0; i < images.size(); ++i) {
+		if (dynamic_cast<PBM_image*>(images[i]))
 		{
-			PBM_image* pbmimage = dynamic_cast<PBM_image*>(image);
+			PBM_image* pbmimage = dynamic_cast<PBM_image*>(images[i]);
 			vector<vector<PBM_pixel>> transposed;
 			Dimensions starting = pbmimage->get_dimensions();
 			if (direction == direction_t::right) {
@@ -23,8 +23,8 @@ void Rotate::execute(vector<Image*> images) {
 				pbmimage->set_dimensions(starting);
 			}
 		}
-		else if (dynamic_cast<PGM_image*>(image)) {
-			PGM_image* pbmimage = dynamic_cast<PGM_image*>(image);
+		else if (dynamic_cast<PGM_image*>(images[i])) {
+			PGM_image* pbmimage = dynamic_cast<PGM_image*>(images[i]);
 			vector<vector<PGM_pixel>> transposed;
 			Dimensions starting = pbmimage->get_dimensions();
 			if (direction == direction_t::right) {
@@ -38,8 +38,8 @@ void Rotate::execute(vector<Image*> images) {
 				pbmimage->set_dimensions(starting);
 			}
 		}
-		else if (dynamic_cast<PPM_image*>(image)) {
-			PPM_image* ppmimage = dynamic_cast<PPM_image*>(image);
+		else if (dynamic_cast<PPM_image*>(images[i])) {
+			PPM_image* ppmimage = dynamic_cast<PPM_image*>(images[i]);
 			vector<vector<PPM_pixel>> transposed;
 			vector<vector<PPM_pixel>> new_pixel_matrix = ppmimage->get_pixel_matrix();
 			Dimensions starting = ppmimage->get_dimensions();

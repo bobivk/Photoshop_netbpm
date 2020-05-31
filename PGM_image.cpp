@@ -3,7 +3,7 @@
 PGM_image::PGM_image(string in_filename) :filename{ in_filename } {
 	ifstream in(filename, ios::beg);
 	in >> dimensions;
-	in >> pixel_max_value;
+	in >> max_pixel_value;
 	PGM_pixel current_pixel;
 	string line;
 	//there may be fill bits at the end, so we need to read only dimensions.y integers on each row
@@ -31,6 +31,9 @@ void PGM_image::save() const {
 }
 string PGM_image::get_file_name() const {
 	return filename;
+}
+int PGM_image::get_max_pixel_value() const {
+	return max_pixel_value;
 }
 void PGM_image::set_dimensions(Dimensions& dim) {
 	dimensions = dim;

@@ -12,6 +12,6 @@ public:
 	direction_t direction;
 	Rotate(direction_t);
 	string get_name() const override;
-	void execute(vector<Image*> images) override;
+	void execute(vector<Image*>& images) override;
 };
 

@@ -33,6 +33,9 @@ void PBM_image::save() const {
 string PBM_image::get_file_name() const {
 	return filename;
 }
+int PBM_image::get_max_pixel_value() const {
+	return 1;
+}
 Dimensions PBM_image::get_dimensions()const {
 	return dimensions;
 }

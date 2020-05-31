@@ -15,4 +15,5 @@ public:
 
 	friend istream& operator>>(istream& in, PBM_pixel& pixel);
 	friend ostream& operator<<(ostream& out, const PBM_pixel& pixel);
+	friend class Negative;
 };

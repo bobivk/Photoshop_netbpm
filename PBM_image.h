@@ -12,9 +12,13 @@ public:
 	PBM_image(string filename);
 	void save() const override;
 	string get_file_name() const override;
+	int get_max_pixel_value() const override;
 	Dimensions get_dimensions() const override;
 	void set_dimensions(Dimensions&) override;
 	vector<vector<PBM_pixel>> get_pixel_matrix() const;
 	void set_pixel_matrix(vector<vector<PBM_pixel>>);
+
+	friend class Monochrome;
+	friend class Negative;
 };
 

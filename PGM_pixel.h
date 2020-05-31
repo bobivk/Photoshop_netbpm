@@ -11,4 +11,6 @@ public:
 
 	friend istream& operator>>(istream& in, PGM_pixel& pixel);
 	friend ostream& operator<<(ostream& out, const PGM_pixel& pixel);
+	friend class Monochrome;
+	friend class Negative;
 };

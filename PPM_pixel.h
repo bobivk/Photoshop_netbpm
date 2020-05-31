@@ -13,4 +13,7 @@ public:
 	PPM_pixel& operator=(const PPM_pixel& other);
 	friend istream& operator>>(istream& in, PPM_pixel& pixel);
 	friend ostream& operator<<(ostream& out, const PPM_pixel& pixel);
+	friend class Monochrome;
+	friend class Negative;
+	friend class Grayscale;
 };

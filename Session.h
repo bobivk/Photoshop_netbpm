@@ -7,7 +7,11 @@
 #include"PBM_image.h"
 #include"PGM_image.h"
 #include"PPM_image.h"
-#include"Action.h"
+#include"Rotate.h"
+#include"Monochrome.h"
+#include"Negative.h"
+#include"Grayscale.h"
+#include"Collage.h"
 #include"Enum_types.h"
 
 using namespace std;
@@ -27,6 +31,7 @@ public:
 	void monochrome();
 	void negative();
 	void collage_input();
+	bool has_pending_actions();
 
 	static unsigned session_last_id;
 private:

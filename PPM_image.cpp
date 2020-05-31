@@ -32,6 +32,9 @@ void PPM_image::save() const {
 string PPM_image::get_file_name() const {
 	return filename;
 }
+int PPM_image::get_max_pixel_value() const {
+	return max_pixel_value;
+}
 void PPM_image::set_dimensions(Dimensions& dim) {
 	dimensions = dim;
 }
