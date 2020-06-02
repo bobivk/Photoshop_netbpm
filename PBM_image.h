@@ -8,6 +8,7 @@ private:
 	vector<vector<PBM_pixel>> pixel_matrix;	//0=white, 1=black
 	Dimensions dimensions;
 	string filename;
+	bool is_binary;
 public:
 	PBM_image(string filename, bool binary);
 	PBM_image(const PBM_image&);
@@ -17,6 +18,7 @@ public:
 	void load_txt();
 	void load_binary();
 	void save() const override;
+	void print() const override;
 	string get_file_name() const override;
 	string get_magic_number() const override;
 	int get_max_pixel_value() const override;

@@ -5,8 +5,7 @@ using namespace std;
 PBM_pixel::PBM_pixel(const PBM_pixel& other) : value{ other.value } {}
 
 void PBM_pixel::read_from_binary(istream& in) {
-	//char input;
-	//in.read(input, 1);
+	in.read((char*)&value, sizeof(bool));
 }
 
 PBM_pixel& PBM_pixel::operator=(const PBM_pixel& other) {

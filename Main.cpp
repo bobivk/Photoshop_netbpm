@@ -40,7 +40,10 @@ int main() {
 		else if (command == "i") {
 			current_session.session_info();
 		}
-		else if (command == "switch") {
+		else if (command == "print") {
+			current_session.print();
+		}
+		else if(command == "switch") {
 			unsigned id;
 			cin >> id;
 			if (id >= current_session.session_last_id) {
@@ -77,6 +80,10 @@ int main() {
 		else if (command == "monochrome") {
 			current_session.monochrome();
 		}
+		else if (command == "collage") {
+			current_session.collage_input();
+		}
+
 		else if (command == "exit") running = false;
 	}
 	return 0;

@@ -13,6 +13,10 @@ void Dimensions::swap_with(Dimensions& other) {
 	std::swap(x, other.x);
 	std::swap(y, other.y);
 }
+void Dimensions::read_from_binary(istream& in) {
+	in.read((char*)&x, sizeof(x));
+	in.read((char*)&y, sizeof(y));
+}
 
 istream& operator>>(istream& in, Dimensions& dimensions) {
 	while (in.peek() == '#') in.ignore(2048, '\n');

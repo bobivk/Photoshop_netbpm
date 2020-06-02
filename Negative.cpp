@@ -5,7 +5,6 @@ string Negative::get_name() const {
 void Negative::execute(vector<Image*>& images) {
 	for (size_t i = 0; i < images.size(); ++i) {
 		int max_pixel_value = images[i]->get_max_pixel_value();
-		cout << "max: " << max_pixel_value;
 		//quasi-same code repetition for all three, since we have no abstract pixel
 		//maybe having the logic for negate, monochrome and grayscale in the pixels themselves would be a better structure?
 		if (dynamic_cast<PBM_image*>(images[i])) {

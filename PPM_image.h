@@ -14,6 +14,7 @@ public:
 	PPM_image(const PPM_image&);
 	PPM_image& operator=(const PPM_image&);
 	void save() const override;
+	void print() const override;
 	string get_file_name() const override;
 	string get_magic_number() const override;
 	int get_max_pixel_value() const override;

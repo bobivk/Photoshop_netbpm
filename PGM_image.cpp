@@ -22,14 +22,7 @@ PGM_image::PGM_image(string in_filename) :filename{ in_filename } {
 		input_pixels.push_back(row_pixels);
 	}
 	set_pixel_matrix(input_pixels);
-	cout << dimensions.y << " rows " << dimensions.x << " cols" << endl;
-	for (unsigned row = 0; row < dimensions.y; ++row) {
-		vector<PGM_pixel> row_pixels = input_pixels[row];
-		for (unsigned col = 0; col < dimensions.x; ++col) {
-			cout << row_pixels[col];
-		}
-		cout << '\n';
-	}
+	print();
 }
 PGM_image::PGM_image(const PGM_image& other) :
 	pixel_matrix{ other.pixel_matrix },
@@ -48,7 +41,7 @@ PGM_image& PGM_image::operator=(const PGM_image& other) {
 
 void PGM_image::save() const {
 	ofstream out(filename, ios::beg|ios::trunc);
-	out << "P5\n";
+	out << "P2\n";
 	out << dimensions << '\n';
 	out << max_pixel_value << '\n';
 	for (unsigned row = 0; row < dimensions.y; ++row) {
@@ -58,6 +51,18 @@ void PGM_image::save() const {
 		}
 		out << '\n';
 	}
+}
+void PGM_image::print() const {
+	cout << filename << endl;
+	cout << dimensions << endl;
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PGM_pixel> row_pixels = pixel_matrix[row];
+		for (unsigned col = 0; col < dimensions.x; ++col) {
+			cout << row_pixels[col];
+		}
+		cout << '\n';
+	}
+	cout << '\n';
 }
 string PGM_image::get_file_name() const {
 	return filename;

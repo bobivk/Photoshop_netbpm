@@ -11,6 +11,7 @@
 #include"Monochrome.h"
 #include"Negative.h"
 #include"Grayscale.h"
+#include"Collage.h"
 #include"Enum_types.h"
 
 using namespace std;
@@ -25,7 +26,8 @@ public:
 	void load_image(string);
 	void save();
 	void undo();
-	void session_info();
+	void session_info()const;
+	void print()const;
 	void rotate(direction_t);
 	void grayscale();
 	void monochrome();

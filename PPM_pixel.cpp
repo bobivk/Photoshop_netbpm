@@ -15,6 +15,11 @@ PPM_pixel& PPM_pixel::operator=(const PPM_pixel& other){
 	blue = other.blue;
 	return *this;
 }
+void PPM_pixel::read_from_binary(istream& in) {
+	in.read((char*)&red, sizeof(int));
+	in.read((char*)&green, sizeof(int));
+	in.read((char*)&blue, sizeof(int));
+}
 
 istream& operator>>(istream& in, PPM_pixel& pixel) {
 	while (in.peek() == '#') in.ignore(2048, '\n');

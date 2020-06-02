@@ -23,15 +23,7 @@ PPM_image::PPM_image(string in_filename) :filename{ in_filename } {
 		input_pixels.push_back(row_pixels);
 	}
 	set_pixel_matrix(input_pixels);
-	cout << "P6\n";
-	cout << dimensions << '\n';
-	for (unsigned row = 0; row < dimensions.y; ++row) {
-		vector<PPM_pixel> row_pixels = pixel_matrix[row];
-		for (unsigned col = 0; col < dimensions.x; ++col) {
-			cout << row_pixels[col];
-		}
-		cout << '\n';
-	}
+	print();
 }
 PPM_image::PPM_image(const PPM_image& other) :
 	pixel_matrix{ other.pixel_matrix },
@@ -50,7 +42,7 @@ PPM_image& PPM_image::operator=(const PPM_image& other) {
 
 void PPM_image::save() const {
 	ofstream out(filename, ios::beg|ios::trunc);
-	out << "P6\n";
+	out << "P3\n";
 	out << dimensions << '\n';
 	out << max_pixel_value << '\n';
 	for (unsigned row = 0; row < dimensions.y; ++row) {
@@ -60,6 +52,18 @@ void PPM_image::save() const {
 		}
 		out << '\n';
 	}
+}
+void PPM_image::print()const {
+	cout << filename << endl;
+	cout << dimensions << endl;
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PPM_pixel> row_pixels = pixel_matrix[row];
+		for (unsigned col = 0; col < dimensions.x; ++col) {
+			cout << row_pixels[col];
+		}
+		cout << '\n';
+	}
+	cout << '\n';
 }
 string PPM_image::get_file_name() const {
 	return filename;

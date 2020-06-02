@@ -9,6 +9,7 @@ struct Dimensions {
 	Dimensions& operator=(const Dimensions&);
 	void swap();
 	void swap_with(Dimensions&);
+	void read_from_binary(istream&);
 	friend istream& operator>>(istream& in, Dimensions& dimensions);
 	friend ostream& operator<<(ostream& out, const Dimensions& dimensions);
 };

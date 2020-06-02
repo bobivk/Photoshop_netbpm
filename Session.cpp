@@ -21,16 +21,17 @@ void Session::load_image(string filename) {
 	string magic_number;
 	file >> magic_number;
 	file.close();
-	if (magic_number == "P4") {
+	if (magic_number == "P1") {
 		images.push_back(new PBM_image(filename, false));
 	}
 	else if (magic_number == "P2") {
-		PGM_image image(filename);
-		images.push_back(&image);
+		images.push_back(new PGM_image(filename));
 	}
 	else if (magic_number == "P3") {
-		PPM_image image(filename);
-		images.push_back(&image);
+		images.push_back(new PPM_image(filename));
+	}
+	else if (magic_number == "P4") {
+		images.push_back(new PBM_image(filename, true));
 	}
 	else if (magic_number == "P5") {
 		images.push_back(new PGM_image(filename));
@@ -54,7 +55,7 @@ void Session::undo() {
 	if (actions.size() > 0) actions.erase(actions.end() - 1);
 	else "No pending actions to undo.\n";
 }
-void Session::session_info() {
+void Session::session_info() const {
 	cout << "Session ID: " << id << endl;
 	cout << images.size() << " Images in the session : ";
 	for(size_t i = 0; i < images.size(); ++i){
@@ -66,6 +67,11 @@ void Session::session_info() {
 		cout << actions[i]->get_name() << ", ";
 	}
 	cout << endl;
+}
+void Session::print() const{
+	for (size_t i = 0; i < images.size(); ++i) {
+		images[i]->print();
+	}
 }
 void Session::rotate(direction_t direction) {
 	actions.push_back(new Rotate(direction));
@@ -82,6 +88,33 @@ void Session::negative() {
 bool Session::has_pending_actions() {
 	return actions.size() > 0;
 }
+void Session::collage_input() {
+	string orientationstr;
+	cin >> orientationstr;
+	orientation_t orientation;
+	if (orientationstr == "horizontal") orientation = orientation_t::horizontal;
+	else if (orientationstr == "vertical") orientation = orientation_t::vertical;
+	int firstindex = 0;
+	int secondindex = 0;
+	string filename1;
+	cin >> filename1;
+	for (size_t i = 0; i < images.size(); ++i) {
+		if (images[i]->get_file_name() == filename1) {
+			firstindex = i;
+		}
+	}
+	string filename2;
+	cin >> filename2;
+	for (size_t i = 0; i < images.size(); ++i) {
+		if (images[i]->get_file_name() == filename2) {
+			secondindex = i;
+		}
+	}
+	string outimage;
+	cin >> outimage;
+	Collage::make_collage(orientation, images[firstindex], images[secondindex], outimage);
+}
+/*
 void Session::make_collage(orientation_t orientation, Image* first, Image* second, string outfilename) {
 	ofstream out(outfilename, ios::beg | ios::trunc);
 	out << first->get_magic_number() << '\n';
@@ -106,3 +139,4 @@ void Session::make_collage(orientation_t orientation, Image* first, Image* secon
 		}
 	}
 }
+*/

@@ -10,11 +10,13 @@ private:
 	Dimensions dimensions;
 	string filename;
 	int max_pixel_value;
+	bool binary;
 public:
 	PGM_image(string filename);
 	PGM_image(const PGM_image&);
 	PGM_image& operator=(const PGM_image&);
 	void save() const override;
+	void print() const override;
 	string get_file_name() const override;
 	string get_magic_number() const override;
 	int get_max_pixel_value() const override;

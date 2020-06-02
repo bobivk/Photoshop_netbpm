@@ -11,6 +11,7 @@ class Image {
 public:
 
 	virtual void save() const = 0;
+	virtual void print() const = 0;
 	virtual string get_file_name() const = 0;
 	virtual string get_magic_number() const = 0;
 	virtual int get_max_pixel_value() const = 0;
