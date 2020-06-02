@@ -4,30 +4,38 @@ using namespace std;
 
 PBM_pixel::PBM_pixel(const PBM_pixel& other) : value{ other.value } {}
 
+void PBM_pixel::read_from_binary(istream& in) {
+	//char input;
+	//in.read(input, 1);
+}
+
 PBM_pixel& PBM_pixel::operator=(const PBM_pixel& other) {
 	if (this != &other) {
 		value = other.value;
 	}
 	return *this;
 }
+void PBM_pixel::swap_with(PBM_pixel& other) {
+	std::swap(value, other.value);
+}
 
 istream& operator>>(istream& in, PBM_pixel& pixel) {
 	char input_char;
-	try {
-		in.get(input_char);
-		if (input_char == '0' || input_char == '1') {
-			pixel.value = input_char - '0';
-		}
-		else
-		{
-			string message;
-			message += input_char;
-			throw Bad_pixel_exception(message);
-		}
+	int badcharcounter = 0;
+	in.get(input_char);
+	while(input_char == ' ') in.get(input_char);
+	if (input_char == '\n') in.get(input_char);
+	if (input_char == '0' || input_char == '1') {
+		pixel.value = input_char - '0';
 	}
-	catch (Bad_pixel_exception& e) {
-		cout << "Bad PBM_pixel exception caught: " << e.get_bad_pixel() << endl;
+	else
+	{
+
+		string message;
+		message += input_char;
+		throw Bad_pixel_exception(message);
 	}
+
 	return in;
 }
 

@@ -12,6 +12,8 @@ private:
 	int max_pixel_value;
 public:
 	PGM_image(string filename);
+	PGM_image(const PGM_image&);
+	PGM_image& operator=(const PGM_image&);
 	void save() const override;
 	string get_file_name() const override;
 	string get_magic_number() const override;
@@ -24,4 +26,5 @@ public:
 
 	friend class Monochrome;
 	friend class Negative;
+	friend class Collage;
 };

@@ -18,6 +18,7 @@ int main() {
 	Session current_session;
 	sessions.push_back(current_session);
 	string command;
+
 	bool running = true;
 	while (running) {
 		cout << " > ";
@@ -35,13 +36,21 @@ int main() {
 		else if (command == "save") {
 			current_session.save();
 		}
-		else if (command == "session_info") {
+		else if (command == "i") {
 			current_session.session_info();
 		}
 		else if (command == "switch") {
-			int id;
+			unsigned id;
 			cin >> id;
-			current_session = sessions[id - 1];
+			if (id >= current_session.session_last_id) {
+				Session new_session;
+				sessions.push_back(new_session);
+				current_session = new_session;
+				cout << "Switched to session with ID: " << current_session.session_last_id;
+			}
+			else {
+				current_session = sessions[id - 1];
+			}
 		}
 		else if (command == "new"){
 			Session new_session;

@@ -7,7 +7,7 @@ void Monochrome::execute(vector<Image*>& images){
 	for (size_t i = 0; i < images.size(); ++i) {
 		int pixel_max_value = images[i]->get_max_pixel_value();
 		if (dynamic_cast<PBM_image*>(images[i])) {
-			cout << "image " << images[i]->get_file_name() << "is already monochrome.\n";
+			cout << "image " << images[i]->get_file_name() << " is already monochrome.\n";
 		}
 		else if (dynamic_cast<PGM_image*>(images[i])) {
 			PGM_image* pgmimage = dynamic_cast<PGM_image*>(images[i]);

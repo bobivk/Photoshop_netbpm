@@ -9,6 +9,7 @@ using namespace std;
 
 class Image {
 public:
+
 	virtual void save() const = 0;
 	virtual string get_file_name() const = 0;
 	virtual string get_magic_number() const = 0;

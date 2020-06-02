@@ -20,6 +20,7 @@ class Session
 {
 public:
 	Session();
+	Session(const Session&);
 	~Session();
 	void load_image(string);
 	void save();

@@ -11,6 +11,8 @@ private:
 	int max_pixel_value;
 public:
 	PPM_image(string filename);
+	PPM_image(const PPM_image&);
+	PPM_image& operator=(const PPM_image&);
 	void save() const override;
 	string get_file_name() const override;
 	string get_magic_number() const override;
@@ -23,5 +25,6 @@ public:
 	friend class Monochrome;
 	friend class Negative;
 	friend class Grayscale;
+	friend class Collage;
 };
  

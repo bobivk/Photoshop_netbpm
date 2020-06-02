@@ -9,7 +9,13 @@ private:
 	Dimensions dimensions;
 	string filename;
 public:
-	PBM_image(string filename);
+	PBM_image(string filename, bool binary);
+	PBM_image(const PBM_image&);
+	PBM_image& operator=(const PBM_image&);
+	void swap_with(PBM_image&);
+	~PBM_image() = default;
+	void load_txt();
+	void load_binary();
 	void save() const override;
 	string get_file_name() const override;
 	string get_magic_number() const override;
@@ -21,5 +27,6 @@ public:
 
 	friend class Monochrome;
 	friend class Negative;
+	friend class Collage;
 };
 
