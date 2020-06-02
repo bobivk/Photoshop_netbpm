@@ -20,7 +20,7 @@ istream& operator>>(istream& in, Dimensions& dimensions) {
 	return in;
 }
 ostream& operator<<(ostream& out, const Dimensions& dimensions){
-	out << dimensions.x << " " << dimensions.y << '\n';
+	out << dimensions.x << " " << dimensions.y;
 	return out;
 }
 void Dimensions::swap() {

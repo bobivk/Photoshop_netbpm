@@ -3,28 +3,29 @@
 PPM_image::PPM_image(string in_filename) :filename{ in_filename } {
 	ifstream in(filename, ios::beg);
 	in >> dimensions;
+	while (in.peek() == '#') in.ignore(2048, '\n');
 	in >> max_pixel_value;
+	vector<vector<PPM_pixel>> input_pixels;
 	PPM_pixel current_pixel;
-	string line;
-	//there may be fill bits at the end, so we need to read
-	//only dimensions.y pixels on each row
-	for (unsigned i = 0; i < dimensions.x; ++i) {
-		getline(in, line);
-		while (line[0] == '#') getline(in, line); //comments
-		stringstream ss(line);
-		for (unsigned j = 0; j < dimensions.y; ++j) {
-			ss >> current_pixel;
-			pixel_matrix[i].push_back(current_pixel);
+	//there may be fill bits at the end, so we need to read only dimensions.y integers on each row
+	for (unsigned i = 0; i < dimensions.y; ++i) {
+		vector<PPM_pixel> row_pixels;
+		while (in.peek() == '#') in.ignore(2048, '\n'); //comments start with '#'
+		for (unsigned j = 0; j < dimensions.x; ++j) {
+			in >> current_pixel;
+			row_pixels.push_back(current_pixel);
 		}
+		input_pixels.push_back(row_pixels);
 	}
+	set_pixel_matrix(input_pixels);
 }
 void PPM_image::save() const {
 	ofstream out(filename, ios::beg|ios::trunc);
 	out << "P6\n";
-	out << dimensions;
-	for (unsigned i = 0; i < dimensions.x; ++i) {
-		for (unsigned j = 0; j < dimensions.y; ++j) {
-			out << pixel_matrix[i][j];
+	out << dimensions << '\n';
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		for (unsigned col = 0; col < dimensions.x; ++col) {
+			out << pixel_matrix[row][col];
 		}
 		out << '\n';
 	}

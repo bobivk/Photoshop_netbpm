@@ -19,6 +19,7 @@ int main() {
 	sessions.push_back(current_session);
 	string command;
 
+
 	bool running = true;
 	while (running) {
 		cout << " > ";

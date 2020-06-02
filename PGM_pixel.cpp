@@ -6,6 +6,7 @@ PGM_pixel& PGM_pixel::operator=(const PGM_pixel& other){
 }
 
 istream& operator>>(istream& in, PGM_pixel& pixel) {
+	while (in.peek() == '#') in.ignore(2048, '\n');
 	return in >> pixel.value;
 	
 }

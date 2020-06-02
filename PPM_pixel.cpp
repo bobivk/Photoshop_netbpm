@@ -8,6 +8,7 @@ PPM_pixel& PPM_pixel::operator=(const PPM_pixel& other){
 }
 
 istream& operator>>(istream& in, PPM_pixel& pixel) {
+	while (in.peek() == '#') in.ignore(2048, '\n');
 	return in >> pixel.red >> pixel.green >> pixel.blue;
 }
 ostream& operator<<(ostream& out, const PPM_pixel& pixel) {

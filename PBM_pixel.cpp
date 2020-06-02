@@ -23,6 +23,7 @@ istream& operator>>(istream& in, PBM_pixel& pixel) {
 	char input_char;
 	int badcharcounter = 0;
 	in.get(input_char);
+	while (in.peek() == '#') in.ignore(2048, '\n');
 	while(input_char == ' ') in.get(input_char);
 	if (input_char == '\n') in.get(input_char);
 	if (input_char == '0' || input_char == '1') {
@@ -40,5 +41,6 @@ istream& operator>>(istream& in, PBM_pixel& pixel) {
 }
 
 ostream& operator<<(ostream& out, const PBM_pixel& pixel) {
-	return out << pixel.value << " ";
+	out << pixel.value << " ";
+	return out;
 }

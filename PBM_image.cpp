@@ -31,26 +31,39 @@ void PBM_image::load_txt() {
 	string magic_number;
 	while (in.peek() == '#') in.ignore(2048, '\n');
 	in >> magic_number;
-	while (in.peek() == '#') in.ignore(2048, '\n'); //comments not working
+	while (in.peek() == '#') in.ignore(2048, '\n');
 	in >> dimensions;
-	cout <<"Dimensions: " << dimensions;
-	vector<vector<PBM_pixel>> input_pixels(dimensions.x);
+	vector<vector<PBM_pixel>> input_pixels;
 	PBM_pixel current_pixel;
+	cout << "\n";
 	//there may be fill bits at the end, so we need to read only dimensions.y characters on each row
-	for (unsigned row = 0; row < dimensions.x; ++row) {
-		vector<PBM_pixel> row_pixels(dimensions.y);
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PBM_pixel> row_pixels;
 		while (in.peek() == '#') in.ignore(2048, '\n');
-		for (unsigned col = 0; col < dimensions.y; ++col) {
+		for (unsigned col = 0; col < dimensions.x; ++col) {
 			try {
 				in >> current_pixel;
 				row_pixels.push_back(current_pixel);
+				cout << current_pixel;
 			}
 			catch (Bad_pixel_exception & e) {
 				cout << "Bad PBM_pixel exception caught: " << e.get_bad_pixel() << endl;
 			}
 		}
 		input_pixels.push_back(row_pixels);
+		cout << "\n";
 	}
+	set_pixel_matrix(input_pixels); 
+	cout << endl << endl;
+	cout << dimensions.y << " rows " << dimensions.x << " cols" << endl;
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PBM_pixel> row_pixels = input_pixels[row];
+		for (unsigned col = 0; col < dimensions.x; ++col) {
+			cout << row_pixels[col];
+		}
+		cout << '\n';
+	}
+	
 }
 void PBM_image::load_binary() {
 	ifstream in(filename, ios::binary|ios::beg);
@@ -63,10 +76,11 @@ void PBM_image::load_binary() {
 void PBM_image::save() const {
 	ofstream out(filename, ios::beg|ios::trunc);
 	out << "P4\n";
-	out << dimensions;
-	for (unsigned i = 0; i < dimensions.x; ++i) {
-		for (unsigned j = 0; j < dimensions.y; ++j) {
-			out << pixel_matrix[i][j] ;
+	out << dimensions << '\n';
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PBM_pixel> row_pixels = pixel_matrix[row];
+		for (unsigned col = 0; col < dimensions.x; ++col) {
+			out << row_pixels[col] ;
 		}
 		out << '\n';
 	}
