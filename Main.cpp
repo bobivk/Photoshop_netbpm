@@ -8,12 +8,14 @@ int main() {
 	cout << "2. session_info\n";
 	cout << "3. switch <session_id>\n";
 	cout << "4. rotate <left|right>\n";
-	cout << "5. monochrome\n";
-	cout << "6. grayscale\n";
-	cout << "7. negative\n";
-	cout << "8. save\n";
-	cout << "9. new\n";
-	cout << "10. exit\n";
+	cout << "5. collage <horizontal|vertical> <image> <image> <output_file>\n";
+	cout << "6. monochrome\n";
+	cout << "7. grayscale\n";
+	cout << "8. negative\n";
+	cout << "9. print\n";
+	cout << "10. save\n";
+	cout << "11. new\n";
+	cout << "12. exit\n";
 	vector<Session> sessions;
 	Session current_session;
 	sessions.push_back(current_session);
@@ -24,6 +26,7 @@ int main() {
 	while (running) {
 		cout << " > ";
 		cin >> command;
+		cout << command << endl;
 		if (command == "load") {
 			string filename;
 			cin >> filename;
@@ -37,7 +40,7 @@ int main() {
 		else if (command == "save") {
 			current_session.save();
 		}
-		else if (command == "i") {
+		else if (command == "session_info") {
 			current_session.session_info();
 		}
 		else if (command == "print") {
@@ -46,15 +49,16 @@ int main() {
 		else if(command == "switch") {
 			unsigned id;
 			cin >> id;
-			if (id >= current_session.session_last_id) {
+			if (id > current_session.session_last_id) {
 				Session new_session;
 				sessions.push_back(new_session);
 				current_session = new_session;
-				cout << "Switched to session with ID: " << current_session.session_last_id;
+				cout << "Switched to session with ID: " << current_session.session_last_id << endl;
 			}
 			else {
 				current_session = sessions[id - 1];
 			}
+			current_session.session_info();
 		}
 		else if (command == "new"){
 			Session new_session;
@@ -83,8 +87,10 @@ int main() {
 		else if (command == "collage") {
 			current_session.collage_input();
 		}
-
-		else if (command == "exit") running = false;
+		else if (command == "exit") {
+			current_session.save();
+			running = false;
+		}
 	}
 	return 0;
 }
