@@ -1,4 +1,9 @@
 #include "PGM_pixel.h"
+PGM_pixel::PGM_pixel() :
+	value{ 0 } {}
+
+PGM_pixel::PGM_pixel(const PGM_pixel& other) :
+	value{ other.value } {}
 
 PGM_pixel& PGM_pixel::operator=(const PGM_pixel& other){
 	value = other.value;

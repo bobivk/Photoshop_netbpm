@@ -4,6 +4,7 @@
 PGM_image::PGM_image(string in_filename) :filename{ in_filename } {
 	ifstream in(filename, ios::beg);
 	string magic_number;
+	while (in.peek() == '#') in.ignore(2048, '\n');
 	in >> magic_number;
 	in >> dimensions;
 	while (in.peek() == '#') in.ignore(2048, '\n');
@@ -29,12 +30,27 @@ PGM_image::PGM_image(string in_filename) :filename{ in_filename } {
 		}
 		cout << '\n';
 	}
-
 }
+PGM_image::PGM_image(const PGM_image& other) :
+	pixel_matrix{ other.pixel_matrix },
+	filename{ other.filename },
+	max_pixel_value{ other.max_pixel_value },
+	dimensions{ other.dimensions }{}
+PGM_image& PGM_image::operator=(const PGM_image& other) {
+	if(this != &other){
+		dimensions = other.dimensions;
+		filename = other.filename;
+		max_pixel_value = other.max_pixel_value;
+		pixel_matrix = other.pixel_matrix;
+	}
+	return *this;
+}
+
 void PGM_image::save() const {
 	ofstream out(filename, ios::beg|ios::trunc);
 	out << "P5\n";
 	out << dimensions << '\n';
+	out << max_pixel_value << '\n';
 	for (unsigned row = 0; row < dimensions.y; ++row) {
 		vector<PGM_pixel> row_pixels = pixel_matrix[row];
 		for (unsigned col = 0; col < dimensions.x; ++col) {

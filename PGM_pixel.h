@@ -7,7 +7,9 @@ private:
 	int value;	//grayscale value
 
 public:
-	PGM_pixel& operator=(const PGM_pixel& other);
+	PGM_pixel();
+	PGM_pixel(const PGM_pixel&);
+	PGM_pixel& operator=(const PGM_pixel&);
 
 	friend istream& operator>>(istream& in, PGM_pixel& pixel);
 	friend ostream& operator<<(ostream& out, const PGM_pixel& pixel);

@@ -33,10 +33,26 @@ PPM_image::PPM_image(string in_filename) :filename{ in_filename } {
 		cout << '\n';
 	}
 }
+PPM_image::PPM_image(const PPM_image& other) :
+	pixel_matrix{ other.pixel_matrix },
+	filename{ other.filename },
+	max_pixel_value{ other.max_pixel_value },
+	dimensions{ other.dimensions }{}
+PPM_image& PPM_image::operator=(const PPM_image& other) {
+	if (this != &other) {
+		dimensions = other.dimensions;
+		filename = other.filename;
+		max_pixel_value = other.max_pixel_value;
+		pixel_matrix = other.pixel_matrix;
+	}
+	return *this;
+}
+
 void PPM_image::save() const {
 	ofstream out(filename, ios::beg|ios::trunc);
 	out << "P6\n";
 	out << dimensions << '\n';
+	out << max_pixel_value << '\n';
 	for (unsigned row = 0; row < dimensions.y; ++row) {
 		vector<PPM_pixel> row_pixels = pixel_matrix[row];
 		for (unsigned col = 0; col < dimensions.x; ++col) {

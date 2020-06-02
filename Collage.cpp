@@ -1,5 +1,6 @@
 #include "Collage.h"
 void Collage::make_collage(orientation_t orientation, Image* first, Image* second, string outfilename) {
+	/*
 	ofstream out(outfilename, ios::beg | ios::trunc);
 	out << first->get_magic_number() << '\n';
 	Dimensions new_dimensions(max(first->get_dimensions().x, second->get_dimensions().x),
@@ -29,4 +30,5 @@ void Collage::make_collage(orientation_t orientation, Image* first, Image* secon
 			}
 		}
 	}
+	*/
 }

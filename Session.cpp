@@ -38,7 +38,6 @@ void Session::load_image(string filename) {
 	else if (magic_number == "P6") {
 		images.push_back(new PPM_image(filename));
 	}
-	//else cout << "Can't load this image\n";
 	cout << "Loaded image " << filename << endl;
 }
 void Session::save() {
@@ -49,6 +48,7 @@ void Session::save() {
 		images[i]->save();
 	}
 	actions.clear();
+	images.clear();
 }
 void Session::undo() {
 	if (actions.size() > 0) actions.erase(actions.end() - 1);

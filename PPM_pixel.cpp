@@ -1,4 +1,13 @@
 #include "PPM_pixel.h"
+PPM_pixel::PPM_pixel() :
+	red{ 0 },
+	blue{ 0 },
+	green{ 0 }{}
+
+PPM_pixel::PPM_pixel(const PPM_pixel& other) : 
+	red{ other.red },
+	blue{ other.blue },
+	green{ other.green }{}
 
 PPM_pixel& PPM_pixel::operator=(const PPM_pixel& other){
 	red = other.red;

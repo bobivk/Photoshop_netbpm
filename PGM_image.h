@@ -24,7 +24,4 @@ public:
 	void set_pixel_matrix(vector<vector<PGM_pixel>>);
 
 
-	friend class Monochrome;
-	friend class Negative;
-	friend class Collage;
 };

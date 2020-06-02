@@ -10,7 +10,9 @@ private:
 	int blue = 0;
 
 public:
-	PPM_pixel& operator=(const PPM_pixel& other);
+	PPM_pixel();
+	PPM_pixel(const PPM_pixel&);
+	PPM_pixel& operator=(const PPM_pixel&);
 	friend istream& operator>>(istream& in, PPM_pixel& pixel);
 	friend ostream& operator<<(ostream& out, const PPM_pixel& pixel);
 	friend class Monochrome;

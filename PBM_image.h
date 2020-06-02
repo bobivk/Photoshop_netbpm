@@ -25,8 +25,5 @@ public:
 	vector<vector<PBM_pixel>> get_pixel_matrix() const;
 	void set_pixel_matrix(vector<vector<PBM_pixel>>);
 
-	friend class Monochrome;
-	friend class Negative;
-	friend class Collage;
 };
 
