@@ -1,7 +1,10 @@
 #include "PGM_image.h"
+#include<iostream>
 
 PGM_image::PGM_image(string in_filename) :filename{ in_filename } {
 	ifstream in(filename, ios::beg);
+	string magic_number;
+	in >> magic_number;
 	in >> dimensions;
 	while (in.peek() == '#') in.ignore(2048, '\n');
 	in >> max_pixel_value;
@@ -18,15 +21,24 @@ PGM_image::PGM_image(string in_filename) :filename{ in_filename } {
 		input_pixels.push_back(row_pixels);
 	}
 	set_pixel_matrix(input_pixels);
+	cout << dimensions.y << " rows " << dimensions.x << " cols" << endl;
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PGM_pixel> row_pixels = input_pixels[row];
+		for (unsigned col = 0; col < dimensions.x; ++col) {
+			cout << row_pixels[col];
+		}
+		cout << '\n';
+	}
+
 }
 void PGM_image::save() const {
 	ofstream out(filename, ios::beg|ios::trunc);
 	out << "P5\n";
 	out << dimensions << '\n';
-	for (unsigned i = 0; i < dimensions.x; ++i) {
-		for (unsigned j = 0; j < dimensions.y; ++j) {
-			unsigned index = dimensions.x * i + j;
-			out << pixel_matrix[i][j];
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PGM_pixel> row_pixels = pixel_matrix[row];
+		for (unsigned col = 0; col < dimensions.x; ++col) {
+			out << row_pixels[col];
 		}
 		out << '\n';
 	}

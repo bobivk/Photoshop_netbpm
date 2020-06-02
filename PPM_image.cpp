@@ -1,7 +1,12 @@
 #include "PPM_image.h"
+#include<iostream>
 
 PPM_image::PPM_image(string in_filename) :filename{ in_filename } {
 	ifstream in(filename, ios::beg);
+	string magic_number;
+	while (in.peek() == '#') in.ignore(2048, '\n');
+	in >> magic_number;
+	while (in.peek() == '#') in.ignore(2048, '\n');
 	in >> dimensions;
 	while (in.peek() == '#') in.ignore(2048, '\n');
 	in >> max_pixel_value;
@@ -18,14 +23,24 @@ PPM_image::PPM_image(string in_filename) :filename{ in_filename } {
 		input_pixels.push_back(row_pixels);
 	}
 	set_pixel_matrix(input_pixels);
+	cout << "P6\n";
+	cout << dimensions << '\n';
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PPM_pixel> row_pixels = pixel_matrix[row];
+		for (unsigned col = 0; col < dimensions.x; ++col) {
+			cout << row_pixels[col];
+		}
+		cout << '\n';
+	}
 }
 void PPM_image::save() const {
 	ofstream out(filename, ios::beg|ios::trunc);
 	out << "P6\n";
 	out << dimensions << '\n';
 	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PPM_pixel> row_pixels = pixel_matrix[row];
 		for (unsigned col = 0; col < dimensions.x; ++col) {
-			out << pixel_matrix[row][col];
+			out << row_pixels[col];
 		}
 		out << '\n';
 	}

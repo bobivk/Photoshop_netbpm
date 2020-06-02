@@ -33,12 +33,10 @@ void Session::load_image(string filename) {
 		images.push_back(&image);
 	}
 	else if (magic_number == "P5") {
-		PGM_image image(filename);
-		images.push_back(&image);
+		images.push_back(new PGM_image(filename));
 	}
 	else if (magic_number == "P6") {
-		PPM_image image(filename);
-		images.push_back(&image);
+		images.push_back(new PPM_image(filename));
 	}
 	//else cout << "Can't load this image\n";
 	cout << "Loaded image " << filename << endl;
