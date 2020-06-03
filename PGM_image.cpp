@@ -28,13 +28,16 @@ PGM_image::PGM_image(const PGM_image& other) :
 	pixel_matrix{ other.pixel_matrix },
 	filename{ other.filename },
 	max_pixel_value{ other.max_pixel_value },
-	dimensions{ other.dimensions }{}
+	dimensions{ other.dimensions },
+	binary{ other.binary }{}
+
 PGM_image& PGM_image::operator=(const PGM_image& other) {
 	if(this != &other){
 		dimensions = other.dimensions;
 		filename = other.filename;
 		max_pixel_value = other.max_pixel_value;
 		pixel_matrix = other.pixel_matrix;
+		binary = other.binary;
 	}
 	return *this;
 }

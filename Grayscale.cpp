@@ -14,7 +14,6 @@ void Grayscale::execute(vector<Image*>& images) {
 					int gray = (row_pixels[col].red +
 								row_pixels[col].blue +
 								row_pixels[col].green) / 3;
-					cout << "gray: " << gray << ",";
 					row_pixels[col].red = gray;
 					row_pixels[col].blue = gray;
 					row_pixels[col].green = gray;

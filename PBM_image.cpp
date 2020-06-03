@@ -46,17 +46,15 @@ void PBM_image::load_txt() {
 			try {
 				in >> current_pixel;
 				row_pixels.push_back(current_pixel);
-				cout << current_pixel;
 			}
 			catch (Bad_pixel_exception & e) {
 				cout << "Bad PBM_pixel exception caught: " << e.get_bad_pixel() << endl;
 			}
 		}
 		input_pixels.push_back(row_pixels);
-		cout << "\n";
 	}
 	set_pixel_matrix(input_pixels); 
-	cout << endl << endl;
+	cout << endl;
 	print();
 }
 void PBM_image::load_binary() {

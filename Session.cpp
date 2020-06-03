@@ -59,7 +59,7 @@ void Session::session_info() const {
 	cout << "Session ID: " << id << endl;
 	cout << images.size() << " Images in the session : ";
 	for(size_t i = 0; i < images.size(); ++i){
-		cout << images[i]->get_file_name() << " " << images[i]->get_dimensions()<< ", ";
+		cout << images[i]->get_file_name() << ", ";
 	}
 	
 	cout << "\nPending actions : ";

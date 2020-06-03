@@ -20,22 +20,18 @@ void PBM_pixel::swap_with(PBM_pixel& other) {
 
 istream& operator>>(istream& in, PBM_pixel& pixel) {
 	char input_char;
-	int badcharcounter = 0;
 	in.get(input_char);
 	while (in.peek() == '#') in.ignore(2048, '\n');
-	while(input_char == ' ') in.get(input_char);
-	if (input_char == '\n') in.get(input_char);
+	while (input_char == ' ' || input_char == '\n') in.get(input_char);
 	if (input_char == '0' || input_char == '1') {
 		pixel.value = input_char - '0';
 	}
 	else
 	{
-
 		string message;
 		message += input_char;
 		throw Bad_pixel_exception(message);
 	}
-
 	return in;
 }
 

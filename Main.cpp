@@ -1,7 +1,16 @@
 #include"Session.h"
 
+//TESTS
+void test_negative() {
+	Session s;
+	s.load_image("j.pbm");
+	s.negative();
+	s.session_info();
+	s.save();
+	s.session_info();
+}
 
-int main() {
+void help() {
 	cout << "Welcome to Netbpm photoshop!  Load a pbm, pgm or ppm image to start.\n";
 	cout << "Choose one of the following commands:\n";
 	cout << "1. load <filename>\n";
@@ -15,14 +24,19 @@ int main() {
 	cout << "9. print\n";
 	cout << "10. save\n";
 	cout << "11. new\n";
-	cout << "12. exit\n";
+	cout << "12. help\n";
+	cout << "13. exit\n";
+}
+
+int main() {
+	help();
 	vector<Session> sessions;
 	Session current_session;
 	sessions.push_back(current_session);
 	string command;
 
 
-	bool running = true;
+	bool running = false;
 	while (running) {
 		cout << " > ";
 		cin >> command;
@@ -46,7 +60,7 @@ int main() {
 		else if (command == "print") {
 			current_session.print();
 		}
-		else if(command == "switch") {
+		else if (command == "switch") {
 			unsigned id;
 			cin >> id;
 			if (id > current_session.session_last_id) {
@@ -60,7 +74,7 @@ int main() {
 			}
 			current_session.session_info();
 		}
-		else if (command == "new"){
+		else if (command == "new") {
 			Session new_session;
 			sessions.push_back(new_session);
 			current_session = new_session;
@@ -87,6 +101,7 @@ int main() {
 		else if (command == "collage") {
 			current_session.collage_input();
 		}
+		else if (command == "help") help();
 		else if (command == "exit") {
 			current_session.save();
 			running = false;
