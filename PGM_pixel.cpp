@@ -12,6 +12,9 @@ PGM_pixel& PGM_pixel::operator=(const PGM_pixel& other){
 void PGM_pixel::read_from_binary(istream& in) {
 	in.read((char*)&value, sizeof(int));
 }
+void PGM_pixel::write_to_binary(ostream& out) {
+	out.write((char*)&value, sizeof(int));
+}
 
 istream& operator>>(istream& in, PGM_pixel& pixel) {
 	while (in.peek() == '#') in.ignore(2048, '\n');

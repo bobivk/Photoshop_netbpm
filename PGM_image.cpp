@@ -1,8 +1,17 @@
 #include "PGM_image.h"
 #include<iostream>
 
-PGM_image::PGM_image(string in_filename) :filename{ in_filename } {
-	ifstream in(filename, ios::beg);
+PGM_image::PGM_image(string in_filename, bool binary) :
+	filename{ in_filename },
+	is_binary{ binary }{
+	if (is_binary) {
+		load_binary();
+	}
+	else load_txt();
+}
+
+void PGM_image::load_txt() {
+	ifstream in(filename);
 	string magic_number;
 	while (in.peek() == '#') in.ignore(2048, '\n');
 	in >> magic_number;
@@ -24,12 +33,32 @@ PGM_image::PGM_image(string in_filename) :filename{ in_filename } {
 	set_pixel_matrix(input_pixels);
 	print();
 }
+
+void PGM_image::load_binary() {
+	ifstream in(filename, ios::binary);
+	in.seekg(2 * sizeof(char)); //skip magic number
+	dimensions.read_from_binary(in);
+	in.read((char*)&max_pixel_value, sizeof(int));
+	vector<vector<PGM_pixel>> input_pixels;
+	PGM_pixel current_pixel;
+	for (unsigned row = 0; row < dimensions.x; ++row) {
+		vector<PGM_pixel> row_pixels;
+		for (unsigned col = 0; col < dimensions.y; ++col) {
+			current_pixel.read_from_binary(in);
+			row_pixels.push_back(current_pixel);
+		}
+		input_pixels.push_back(row_pixels);
+	}
+	set_pixel_matrix(input_pixels);
+	print();
+}
+
 PGM_image::PGM_image(const PGM_image& other) :
 	pixel_matrix{ other.pixel_matrix },
 	filename{ other.filename },
 	max_pixel_value{ other.max_pixel_value },
 	dimensions{ other.dimensions },
-	binary{ other.binary }{}
+	is_binary{ other.is_binary }{}
 
 PGM_image& PGM_image::operator=(const PGM_image& other) {
 	if(this != &other){
@@ -37,13 +66,17 @@ PGM_image& PGM_image::operator=(const PGM_image& other) {
 		filename = other.filename;
 		max_pixel_value = other.max_pixel_value;
 		pixel_matrix = other.pixel_matrix;
-		binary = other.binary;
+		is_binary = other.is_binary;
 	}
 	return *this;
 }
 
 void PGM_image::save() const {
-	ofstream out(filename, ios::beg|ios::trunc);
+	if (is_binary) save_binary();
+	else save_txt();
+}
+void PGM_image::save_txt() const {
+	ofstream out(filename, ios::trunc);
 	out << "P2\n";
 	out << dimensions << '\n';
 	out << max_pixel_value << '\n';
@@ -51,6 +84,19 @@ void PGM_image::save() const {
 		vector<PGM_pixel> row_pixels = pixel_matrix[row];
 		for (unsigned col = 0; col < dimensions.x; ++col) {
 			out << row_pixels[col];
+		}
+		out << '\n';
+	}
+}
+void PGM_image::save_binary() const {
+	ofstream out(filename, ios::binary | ios::trunc);
+	out.write("P5", 2);
+	dimensions.write_to_binary(out);
+	out.write((char*)&max_pixel_value, sizeof(int));
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PGM_pixel> row_pixels = pixel_matrix[row];
+		for (unsigned col = 0; col < dimensions.x; ++col) {
+			row_pixels[col].write_to_binary(out);
 		}
 		out << '\n';
 	}
@@ -71,7 +117,8 @@ string PGM_image::get_file_name() const {
 	return filename;
 }
 string PGM_image::get_magic_number() const {
-	return "P5";
+	if (is_binary) return "P5";
+	return "P2";
 }
 int PGM_image::get_max_pixel_value() const {
 	return max_pixel_value;
@@ -85,6 +132,6 @@ Dimensions PGM_image::get_dimensions() const {
 vector<vector<PGM_pixel>> PGM_image::get_pixel_matrix() const {
 	return pixel_matrix;
 }
-void PGM_image::set_pixel_matrix(vector<vector<PGM_pixel>> in) {
+void PGM_image::set_pixel_matrix(vector<vector<PGM_pixel>>& in) {
 	pixel_matrix = in;
 }

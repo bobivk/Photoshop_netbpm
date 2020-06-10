@@ -11,7 +11,7 @@ public:
 	PGM_pixel(const PGM_pixel&);
 	PGM_pixel& operator=(const PGM_pixel&);
 	void read_from_binary(istream& in);
-
+	void write_to_binary(ostream& out);
 	friend istream& operator>>(istream& in, PGM_pixel& pixel);
 	friend ostream& operator<<(ostream& out, const PGM_pixel& pixel);
 	friend class Monochrome;

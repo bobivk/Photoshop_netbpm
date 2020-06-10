@@ -4,6 +4,7 @@ PBM_image::PBM_image(const PBM_image& other) :
 	dimensions{ other.dimensions },
 	pixel_matrix{ other.pixel_matrix },
 	is_binary{ other.is_binary }{}
+
 PBM_image& PBM_image::operator=(const PBM_image& other) {
 	PBM_image temp{ other };
 	swap_with(temp);
@@ -29,7 +30,7 @@ PBM_image::PBM_image(string in_filename, bool binary) :
 }
 
 void PBM_image::load_txt() {
-	ifstream in(filename, ios::beg);
+	ifstream in(filename);
 	string magic_number;
 	while (in.peek() == '#') in.ignore(2048, '\n');
 	in >> magic_number;
@@ -58,7 +59,7 @@ void PBM_image::load_txt() {
 	print();
 }
 void PBM_image::load_binary() {
-	ifstream in(filename, ios::binary|ios::beg);
+	ifstream in(filename, ios::binary);
 	in.seekg(2 * sizeof(char)); //skip magic number
 	dimensions.read_from_binary(in);
 	vector<vector<PBM_pixel>> input_pixels;
@@ -87,14 +88,29 @@ void PBM_image::print() const {
 	cout << '\n';
 }
 void PBM_image::save() const {
-	ofstream out(filename, ios::beg|ios::trunc);
-	if (is_binary) out << "P1\n";
-	else out << "P1\n";
+	if (is_binary) save_binary();
+	else save_txt();
+}
+void PBM_image::save_txt() const {
+	ofstream out(filename, ios::trunc);
+	out << "P1\n";
 	out << dimensions << '\n';
 	for (unsigned row = 0; row < dimensions.y; ++row) {
 		vector<PBM_pixel> row_pixels = pixel_matrix[row];
 		for (unsigned col = 0; col < dimensions.x; ++col) {
-			out << row_pixels[col] ;
+			out << row_pixels[col];
+		}
+		out << '\n';
+	}
+}
+void PBM_image::save_binary() const {
+	ofstream out(filename, ios::binary | ios::trunc);
+	out.write("P4", 2);
+	dimensions.write_to_binary(out);
+	for (unsigned row = 0; row < dimensions.y; ++row) {
+		vector<PBM_pixel> row_pixels = pixel_matrix[row];
+		for (unsigned col = 0; col < dimensions.x; ++col) {
+			row_pixels[col].write_to_binary(out);
 		}
 		out << '\n';
 	}
@@ -103,7 +119,8 @@ string PBM_image::get_file_name() const {
 	return filename;
 }
 string PBM_image::get_magic_number() const {
-	return "P4";
+	if (is_binary) return "P4";
+	return "P1";
 }
 int PBM_image::get_max_pixel_value() const {
 	return 1;
@@ -118,6 +135,6 @@ void PBM_image::set_dimensions(Dimensions& dim) {
 vector<vector<PBM_pixel>> PBM_image::get_pixel_matrix() const {
 	return pixel_matrix;
 }
-void PBM_image::set_pixel_matrix(vector<vector<PBM_pixel>> in) {
+void PBM_image::set_pixel_matrix(vector<vector<PBM_pixel>>& in) {
 	pixel_matrix = in;
 }

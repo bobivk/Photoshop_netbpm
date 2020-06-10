@@ -25,19 +25,19 @@ void Session::load_image(string filename) {
 		images.push_back(new PBM_image(filename, false));
 	}
 	else if (magic_number == "P2") {
-		images.push_back(new PGM_image(filename));
+		images.push_back(new PGM_image(filename, false));
 	}
 	else if (magic_number == "P3") {
-		images.push_back(new PPM_image(filename));
+		images.push_back(new PPM_image(filename, false));
 	}
 	else if (magic_number == "P4") {
 		images.push_back(new PBM_image(filename, true));
 	}
 	else if (magic_number == "P5") {
-		images.push_back(new PGM_image(filename));
+		images.push_back(new PGM_image(filename, true));
 	}
 	else if (magic_number == "P6") {
-		images.push_back(new PPM_image(filename));
+		images.push_back(new PPM_image(filename, true));
 	}
 	cout << "Loaded image " << filename << endl;
 }

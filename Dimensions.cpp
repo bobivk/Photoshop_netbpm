@@ -14,8 +14,12 @@ void Dimensions::swap_with(Dimensions& other) {
 	std::swap(y, other.y);
 }
 void Dimensions::read_from_binary(istream& in) {
-	in.read((char*)&x, sizeof(x));
-	in.read((char*)&y, sizeof(y));
+	in.read((char*)&x, sizeof(unsigned));
+	in.read((char*)&y, sizeof(unsigned));
+}
+void Dimensions::write_to_binary(ostream& out) const{
+	out.write((char*)&x, sizeof(unsigned));
+	out.write((char*)&y, sizeof(unsigned));
 }
 
 istream& operator>>(istream& in, Dimensions& dimensions) {

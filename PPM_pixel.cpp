@@ -20,6 +20,11 @@ void PPM_pixel::read_from_binary(istream& in) {
 	in.read((char*)&green, sizeof(int));
 	in.read((char*)&blue, sizeof(int));
 }
+void PPM_pixel::write_to_binary(ostream& out) {
+	out.write((char*)&red, sizeof(int));
+	out.write((char*)&green, sizeof(int));
+	out.write((char*)&blue, sizeof(int));
+}
 
 istream& operator>>(istream& in, PPM_pixel& pixel) {
 	while (in.peek() == '#') in.ignore(2048, '\n');

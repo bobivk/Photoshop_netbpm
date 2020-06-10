@@ -8,6 +8,7 @@
 using namespace std;
 
 class Image {
+
 public:
 
 	virtual void save() const = 0;

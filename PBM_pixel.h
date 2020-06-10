@@ -14,6 +14,7 @@ public:
 	PBM_pixel& operator=(const PBM_pixel& other);
 	void swap_with(PBM_pixel&);
 	void read_from_binary(istream& in);
+	void write_to_binary(ostream& out);
 	friend istream& operator>>(istream& in, PBM_pixel& pixel);
 	friend ostream& operator<<(ostream& out, const PBM_pixel& pixel);
 	friend class Negative;

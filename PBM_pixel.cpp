@@ -7,6 +7,9 @@ PBM_pixel::PBM_pixel(const PBM_pixel& other) : value{ other.value } {}
 void PBM_pixel::read_from_binary(istream& in) {
 	in.read((char*)&value, sizeof(bool));
 }
+void PBM_pixel::write_to_binary(ostream& out) {
+	out.write((char*)&value, sizeof(bool));
+}
 
 PBM_pixel& PBM_pixel::operator=(const PBM_pixel& other) {
 	if (this != &other) {

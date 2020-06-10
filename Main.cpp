@@ -36,7 +36,7 @@ int main() {
 	string command;
 
 
-	bool running = false;
+	bool running = true;
 	while (running) {
 		cout << " > ";
 		cin >> command;

@@ -41,9 +41,6 @@ private:
 	vector<Action*> actions;
 	unsigned id;
 
-	
-
-	void make_collage(orientation_t, Image*, Image*, string in_outfilename);
 
 
 	unsigned get_new_id();
